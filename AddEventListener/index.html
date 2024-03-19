@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AddEventListener</title>
+    <style>
+        .destaque {
+            background-color: aqua;
+            width: 30%;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="c1" class="cursosTipo1" onclick="alert('clicou')">Html</div>
+    <div id="c2" class="cursosTipo1" onclick="msg()">css</div>
+    <div id="c3" class="cursosTipo1" onclick="msgArrow()">javascript</div>
+    <div id="c4" class="cursosTipo1">java</div>
+    <div id="c5" class="cursosTipo1">c#</div>
+
+    <div id="c6" class="cursosTipo2">Ingles</div>
+    <div id="c7" class="cursosTipo2">Azure</div>
+    <div id="c8" class="cursosTipo2">Aws</div>
+    <div id="c9" class="cursosTipo2">Excel</div>
+    <div id="c10" class="cursosTipo2">.net</div>
+    <script>
+        // Exitem varias formas de Ativar eventos, no html ou até mesmo no JS
+        function msg() {
+            alert('clicou em um evento programado no JS');
+        }
+
+        msgArrow = () => {
+            alert('clicou em um evento js de uma função anonima');
+        }
+        // Evento por meio do addEventListener
+        const c4 = document.querySelector("#c4");
+        c4.addEventListener("click",msg);
+
+        const c5 = document.querySelector("#c5");
+        c5.addEventListener("click",()=>{
+            msgArrow();
+        });
+
+        // dessa forma eu consigo descobrir quem disparou o meu evento e assim modifica-lo
+        const c6 = document.querySelector("#c6");
+        c6.addEventListener("click",(quemDisparou)=>{
+            console.log(quemDisparou.target);
+        });
+
+        // aqui modificamos o estilo do elemento que dispara o evento
+        const c7 = document.querySelector("#c7");
+        c7.addEventListener("click",(quemDisparou)=>{
+            quemDisparou.target.classList.add("destaque");
+        });
+
+        // adicionando um evento a todos os elementos da classe cursorTipo1
+        const cursosTipo1 = [...document.querySelectorAll(".cursosTipo1")];
+        cursosTipo1.map((el)=>{
+            el.addEventListener("click",(quemDisparou)=>{
+                quemDisparou.target.classList.add("destaque");
+                console.log(el + "foi clicado");
+            });
+        });
+    </script>
+</body>
+</html>
